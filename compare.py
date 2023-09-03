@@ -24,7 +24,8 @@ def weight():
     menu()
 
 def height():
-    userHeight = input("How tall are you in centimeters? ")
+    print("How tall are you in centimeters? ")
+    userHeight = answerNum()
     feet = math.floor(int(userHeight) / 30)
     inch = (int(userHeight)-(feet*30)) % 12
     print(f"Your height in feet/inches is {feet}\"{inch}")
@@ -36,7 +37,7 @@ def calculator():
     print("Input your second number.")
     y = answerNum()
     print("What do you want to do with these numbers? (+, -, *, ^, /)")
-    mathOP = answerAllow("+-*^/")
+    mathOP = answerAllow("+-*^/") # Limit only these chars
     match str(mathOP):
         case "+":
             print("The answer is: ", x + y)
@@ -47,13 +48,14 @@ def calculator():
         case "^":
             print("The answer is: ", x ** y)
         case "/":
-            if y == 0:
+            if y == 0: # please do not divide by zero
                 print("Hey! That's illegal and may cause destruction of the universe you dummy!")
                 calculator()
             else:
                 print("The answer is: ", round(float(x/y),3))
-        case "_"
+        case "_": # I need to find a way so users don't input double characters. For now I'll just return it back to calc()
             print("Please insert a valid operator.")
+            calculator()
             
             
 def answerStr(): # Lets user input anything.
@@ -68,7 +70,7 @@ def answerNum(): # Lets user input just numbers
         print("Please input numbers only.")
         answerNum()
         
-def answerAllow(allowedStrings): # Checks if user is inputting the correct chars
+def answerAllow(allowedStrings): # Arg is allowed chars. Checks if user is inputting the correct chars
     allowstr = allowedStrings
     userinput = input("Answer: ").strip()
     if userinput == "": # Apparently Py will also return blanks. This is to prevent that.
